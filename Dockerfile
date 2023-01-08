@@ -32,6 +32,11 @@ COPY . .
 
 RUN apk add --update python3 make g++\
    && rm -rf /var/cache/apk/*
+	
+# update and install dependency
+RUN apk update && apk upgrade
+RUN apk add git
+RUN apk add nano
 
 RUN npm install
 
