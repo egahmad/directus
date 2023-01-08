@@ -64,6 +64,15 @@ VOLUME \
   /directus/database \
   /directus/extensions \
   /directus/uploads
+  
+# egahmad changes start here
+WORKDIR /directus
+
+RUN apk update && apk upgrade
+RUN apk add git
+RUN apk add nano
+
+# egahmad changes ends here
 
 EXPOSE 8055
 CMD npx directus bootstrap && npx directus start
