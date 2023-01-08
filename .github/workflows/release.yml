@@ -122,8 +122,8 @@ jobs:
         if: env.GHCR_IMAGE
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.CT_PAT }}
 
       - name: Build and push
         uses: docker/build-push-action@v3
