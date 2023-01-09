@@ -10,6 +10,8 @@ RUN \
   if [ "$TARGETPLATFORM" = 'linux/arm64' ]; then \
   apk --no-cache add \
   python3 \
+  git \
+  nano \
   build-base \
   && ln -sf /usr/bin/python3 /usr/bin/python \
   ; fi
@@ -23,19 +25,6 @@ ARG VERSION
 ARG REPOSITORY=directus/directus
 
 LABEL directus.version="${VERSION}"
-
-################################################
-# egahmad changes start here
-USER root
-WORKDIR /directus
-
-RUN apk update && apk upgrade
-RUN apk add git
-RUN apk add nano
-
-RUN npm install directus-extension-editorjs
-# egahmad changes ends here
-################################################
 
 # Default environment variables
 # (see https://docs.directus.io/reference/environment-variables/)
@@ -78,15 +67,14 @@ VOLUME \
   /directus/database \
   /directus/extensions \
   /directus/uploads
-  
-# egahmad changes start here
-WORKDIR /directus
 
-RUN apk update && apk upgrade
-RUN apk add git
-RUN apk add nano
+################################################
+# egahmad changes start here
+
+RUN npm install directus-extension-editorjs
 
 # egahmad changes ends here
+################################################
 
 EXPOSE 8055
 CMD npx directus bootstrap && npx directus start
