@@ -43,6 +43,20 @@ RUN \
   # (can be omitted on newer Docker versions since WORKDIR below will do the same)
   && mkdir /directus && chown node:node /directus
 
+# egahmad changes start here
+WORKDIR /directus
+
+USER root
+WORKDIR /directus
+
+RUN apk update && apk upgrade
+RUN apk add git
+RUN apk add nano
+
+RUN npm install directus-extension-editorjs
+
+# egahmad changes ends here
+
 # Switch to user 'node' and directory '/directus'
 USER node
 WORKDIR /directus
